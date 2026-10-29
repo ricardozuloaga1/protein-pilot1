@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Protein Pilot",
+    "slug": "protein-pilot-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.proteinpilot.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Photograph your meal to create an editable food estimate.",
+        "NSPhotoLibraryUsageDescription": "Choose a meal photo for your food journal."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-font",
+      "expo-sharing",
+      "@react-native-community/datetimepicker",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose a meal photo for an editable estimate.",
+          "cameraPermission": "Photograph a meal for an editable estimate.",
+          "microphonePermission": false
+        }
+      ]
+    ],
+    "scheme": "proteinpilot"
+  }
+}

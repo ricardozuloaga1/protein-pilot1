@@ -1,0 +1,16 @@
+[
+  {
+    "id": "measured-food-1",
+    "path": "/absolute/path/to/licensed-measured-food.jpg",
+    "source": "Photographer, capture date, preparation and weighing record",
+    "license": "Permission or license identifier",
+    "expectation": "Recognize the documented food; disclose uncertainty; compare raw nutrition with reference",
+    "rationale": "Reference assembled independently before app evaluation",
+    "reference": {
+      "source": "Exact label UPC/version or matched food database ID, preparation and retrieval date",
+      "grams": 100,
+      "protein": 20,
+      "calories": 200
+    }
+  }
+]

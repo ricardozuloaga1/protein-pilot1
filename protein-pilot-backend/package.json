@@ -1,0 +1,43 @@
+{
+  "name": "protein-pilot-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "test": "node --import tsx --test test/*.test.ts",
+    "check": "npm run build && tsc -p tsconfig.eval.json && npm test",
+    "format": "prettier --write src test scripts",
+    "format:check": "prettier --check src test scripts",
+    "smoke:openai": "tsx scripts/smoke-openai.ts",
+    "eval:synthetic": "NODE_ENV=test node --import tsx scripts/eval/synthetic.ts",
+    "eval:report": "node --import tsx scripts/eval/report.ts",
+    "eval:live": "NODE_ENV=test node --import tsx scripts/eval/live.ts",
+    "eval:serve": "NODE_ENV=test node --import tsx scripts/eval/serve.ts"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.3.1",
+    "@fastify/multipart": "^10.1.6",
+    "@fastify/rate-limit": "^11.2.1",
+    "better-sqlite3": "^13.0.3",
+    "dotenv": "^18.0.9",
+    "fastify": "^5.12.7",
+    "nodemailer": "^10.2.1",
+    "openai": "^7.45.0",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.5",
+    "@types/nodemailer": "^8.0.2",
+    "prettier": "^3.9.10",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

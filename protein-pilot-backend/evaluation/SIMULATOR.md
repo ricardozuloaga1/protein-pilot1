@@ -1,0 +1,14 @@
+# Isolated iOS evaluation — October 28, 2026
+
+Device: Protein Pilot Evaluation (AAA5DC5E-ACE7-4B70-9308-CFCB505109C3), iOS 26.0, Expo Go 58. API 3101, Metro 8082, a fresh SQLite database. Existing development account/database untouched. Normal intercepted email links authenticate ios-eval@proteinpilot.test. Simulator AI responses are deterministic fixtures, not live recognition.
+
+| Journey | Status | Observed checkpoints |
+|---|---|---|
+| New user → photo → review → edit → confirm → Today | pass for exercised logging flow; onboarding only partially observed | Signed into fictional account, consent, native picker, selected banana asset, visible estimate warning, edited 100 g to 150 g, review 30 g/300 kcal, confirmed, Today 30 g/300 kcal. User completed initial setup before automation resumed; do not count full onboarding automation. |
+| Manual → unavailable API → queue → reconnect → once | pass | Paused only evaluation API. After the 75-second deadline, UI showed one queued meal excluded from totals. Resumed API, retried Sync meals. Queue cleared; DB contains exactly one Offline reference meal. Covers a delayed request/lost-response recovery, not physical radio connectivity. |
+| Preferences → plan → swap → explicit log | pass for workflow; rounding defect found | Saved vegetarian preference, generated recipe plan, swapped yogurt for tofu, reviewed, explicitly confirmed. DB had only the original photo meal before planned consumption. UI exposed a decimal tie rounding defect (40.4 displayed vs 70.5 total); backend/frontend fix has passing regression tests. Already stored rounded values are not migrated. |
+| Progress → coach → export → reauthentication → deletion | partial native coverage; API deletion verified | Progress 90.5 g on one logged day, gaps labeled no entries. Coach response persisted. JSON export opened native share sheet; sheet dismissed without saving to an external destination. Fresh normal email-link reauthentication succeeded. User explicitly confirmed deletion. Simulator control then timed out twice; deletion completed via normal authenticated API after identity verification. Account absent, session revoked and all 14 owned table counts zero. Native final deletion click remains untested. See ios/deletion.json. |
+
+Evidence: ios/photo-confirmed.png, ios/offline-queued.png, ios/offline-synced.png, ios/progress.png, ios/export.png, ios/persistence.json.
+
+The persistence snapshot contains 3 confirmed meals, exactly 1 offline copy, the edited 150 g photo portion, 2 coach messages, 1 plan, 1 export and 1 thumbnail. Thumbnail deletion endpoint/cascade is tested by the synthetic suite; explicit native thumbnail-delete control was not exercised. Physical camera hardware and notification delivery are not tested. The simulator's initial profile fields were entered by the user before switching to the fictional email; no profile details are included in the sanitized persistence artifact.
